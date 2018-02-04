@@ -1,7 +1,7 @@
 USE sakila;
 
 SELECT * FROM actor;
-select concat(first_name, ' ', last_name) AS Actor_Name
+SELECT concat(first_name, ' ', last_name) AS Actor_Name
 FROM actor;
 
 SELECT actor_id, first_name, last_name 
@@ -85,9 +85,9 @@ FROM film,
 WHERE name = 'english') as j
 WHERE title LIKE 'K%' OR title LIKE 'Q%';
 
-SELECT title, k.first_name, k.last_name
+SELECT title, fl.first_name, fl.last_name
 FROM film,
-(SELECT first_name, last_name FROM actor) as k
+(SELECT first_name, last_name FROM actor) as fl
 WHERE title = 'Alone Trip';
 
 SELECT * FROM actor;
@@ -105,7 +105,7 @@ SELECT * FROM address;
 
 SELECT * FROM city;
 SELECT * FROM country;
-#7
+
 SELECT first_name, last_name, email
 FROM customer
 JOIN address 
@@ -128,9 +128,9 @@ WHERE category_id = '8');
 SELECT film.title, COUNT(film.title) AS times_rented
 FROM rental 
 INNER JOIN inventory 
-    ON rental.inventory_id = inventory.inventory_id
+ON rental.inventory_id = inventory.inventory_id
 INNER JOIN film 
-    ON inventory.film_id = film.film_id
+ON inventory.film_id = film.film_id
 GROUP BY film.title
 ORDER BY times_rented DESC;
 
@@ -163,13 +163,13 @@ ON city.country_id = country.country_id
 SELECT category.name, SUM(payment.amount) AS gross_revenue
 FROM category 
 INNER JOIN film_category 
-    ON category.category_id = film_category.category_id
+ON category.category_id = film_category.category_id
 INNER JOIN inventory
-    ON film_category.film_id = inventory.film_id
+ON film_category.film_id = inventory.film_id
 INNER JOIN rental 
-    ON inventory.inventory_id = rental.inventory_id
+ON inventory.inventory_id = rental.inventory_id
 INNER JOIN payment 
-    ON rental.rental_id = payment.rental_id
+ON rental.rental_id = payment.rental_id
 GROUP BY name
 ORDER BY gross_revenue DESC
 LIMIT 5;
@@ -180,13 +180,13 @@ CREATE VIEW Top_5_Gross_Revenue_by_Genre AS
 SELECT category.name, SUM(payment.amount) AS gross_revenue
 FROM category 
 INNER JOIN film_category 
-    ON category.category_id = film_category.category_id
+ON category.category_id = film_category.category_id
 INNER JOIN inventory 
-    ON film_category.film_id = inventory.film_id
+ON film_category.film_id = inventory.film_id
 INNER JOIN rental
-    ON inventory.inventory_id = rental.inventory_id
+ON inventory.inventory_id = rental.inventory_id
 INNER JOIN payment 
-    ON rental.rental_id = payment.rental_id
+ON rental.rental_id = payment.rental_id
 GROUP BY name
 ORDER BY gross_revenue DESC
 LIMIT 5;
